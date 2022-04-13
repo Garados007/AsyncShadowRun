@@ -25,4 +25,9 @@ public abstract class CommandBase
     public abstract SlashCommandProperties GetSlashCommand();
 
     public abstract Task Execute(SocketSlashCommand command);
+
+    public virtual Task AutoComplete(SocketAutocompleteInteraction interaction)
+    {
+        return Task.CompletedTask;
+    }
 }

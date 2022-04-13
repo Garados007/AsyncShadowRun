@@ -16,7 +16,7 @@ public class CreatePlace : CommandBase
     {
         var command = new SlashCommandBuilder()
             .WithName(Name)
-            .WithDescription("Create a now room and associated role for a new place")
+            .WithDescription("Create now a room and associated role for a new place")
             .AddOption(
                 name: "name",
                 type: ApplicationCommandOptionType.String,
@@ -60,6 +60,17 @@ public class CreatePlace : CommandBase
     {
         var name = command.Data.Options.First().Value.ToString();
         var channelName = name is null ? name : FormatChannelName(name);
+
+        if (Config.LeaderRole is ulong leader && 
+            !((command.User as IGuildUser)?.RoleIds.Contains(leader) ?? false)
+        )
+        {
+            await command.RespondAsync(
+                $"You are not allowed to use this command. Only <@&{leader}> can do this!"
+            );
+            return;
+        }
+
         if (string.IsNullOrWhiteSpace(channelName))
         {
             await command.RespondAsync(
@@ -126,21 +137,20 @@ public class CreatePlace : CommandBase
         });
         await SaveConfigAsync();
         await command.RespondAsync(
-            embeds: new []
-                {
-                    new EmbedBuilder()
-                        .WithAuthor(
-                            new EmbedAuthorBuilder()
-                                .WithName(command.User.Username)
-                                .WithIconUrl(command.User.GetAvatarUrl() ?? command.User.GetDefaultAvatarUrl())
-                        )
-                        .WithTitle($"Ort wurde erstellt")
-                        .WithDescription(
-                            $"Chat: <#{channel.Id}>\nRolle: <@&{role.Id}>"
-                        )
-                        .Build()
-                }
+            embed: new EmbedBuilder()
+                .WithAuthor(
+                    new EmbedAuthorBuilder()
+                        .WithName(command.User.Username)
+                        .WithIconUrl(command.User.GetAvatarUrl() ?? command.User.GetDefaultAvatarUrl())
+                )
+                .WithTitle($"Ort wurde erstellt")
+                .WithDescription(
+                    $"Chat: <#{channel.Id}>\nRolle: <@&{role.Id}>"
+                )
+                .Build(),
+            allowedMentions: AllowedMentions.None
         );
 
+        await new Tools.AutoRoleForRoom(Config, Client).RepopulateMessages();
     }
 }

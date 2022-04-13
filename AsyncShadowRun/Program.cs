@@ -15,9 +15,10 @@ public class Program
     {
         Config = config;
         Client = client;
-        Commands = new[]
+        Commands = new Commands.CommandBase[]
         {
             new Commands.CreatePlace(this),
+            new Commands.DeletePlace(this),
         };
     }
 
@@ -40,6 +41,10 @@ public class Program
         client.Log += Log;
         client.Ready += program.ClientReady;
         client.SlashCommandExecuted += program.SlashCommandHandler;
+        client.ReactionAdded += program.ReactionAddedHandler;
+        client.AutocompleteExecuted += program.AutoCompleteHandler;
+        // client.AutocompleteExecuted += x => Task.Run(() => Console.WriteLine(ToJson(x.Data)));
+        // client.InteractionCreated += x => Task.Run(() => Console.WriteLine(ToJson(x.Data)));
 
         await client.LoginAsync(TokenType.Bot, config.Token);
         await client.StartAsync();
@@ -81,6 +86,43 @@ public class Program
             text: $"Unknown command `{command.Data.Name}`",
             ephemeral: true
         );
+    }
+
+    private async Task ReactionAddedHandler(
+        Cacheable<IUserMessage, ulong> message, 
+        Cacheable<IMessageChannel, ulong> channel,
+        SocketReaction reaction
+    )
+    {
+        if (Config.AutoChatRoom.RoomMsg.ContainsKey(reaction.MessageId))
+        {
+            await new Tools.AutoRoleForRoom(Config, Client).HandleReaction(reaction);
+            return;
+        }
+    }
+
+    private async Task AutoCompleteHandler(SocketAutocompleteInteraction interaction)
+    {
+        for (int i = 0; i < Commands.Length; ++i)
+            if (Commands[i].Name == interaction.Data.CommandName)
+            {
+                await Commands[i].AutoComplete(interaction);
+                return;
+            }
+    }
+
+    public static string ToJson<T>(T value)
+    {
+        var json = System.Text.Json.JsonSerializer.Serialize(
+            new { type = typeof(T).FullName, value = value }, 
+            new System.Text.Json.JsonSerializerOptions 
+            {
+                WriteIndented = true,
+                ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles, 
+            }
+        );
+        return json;
+
     }
 
 }
