@@ -36,8 +36,23 @@ public class CreatePlace : CommandBase
             var ch = name[i];
             switch (ch)
             {
+                case 'ä':
+                case 'ö':
+                case 'ü':
                 case (>= 'a' and <= 'z') or (>= '0' and <= '9'):
                     data[j++] = ch;
+                    special = false;
+                    break;
+                case 'Ä':
+                    data[j++] = 'ä';
+                    special = false;
+                    break;
+                case 'Ö':
+                    data[j++] = 'ö';
+                    special = false;
+                    break;
+                case 'Ü':
+                    data[j++] = 'ü';
                     special = false;
                     break;
                 case >= 'A' and <= 'Z':
