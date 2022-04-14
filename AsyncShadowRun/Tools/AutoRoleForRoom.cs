@@ -122,7 +122,7 @@ public class AutoRoleForRoom
             ));
         }
 
-        await Config.WriteTo("config.json");
+        await Config.Save();
     }
 
     public async Task HandleReaction(SocketReaction reaction)

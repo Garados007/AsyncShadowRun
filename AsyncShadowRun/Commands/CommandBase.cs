@@ -17,7 +17,7 @@ public abstract class CommandBase
 
     protected async Task SaveConfigAsync()
     {
-        await Config.WriteTo("config.json");
+        await Config.Save();
     }
 
     public abstract string Name { get; }

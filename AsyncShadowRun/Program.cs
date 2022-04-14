@@ -26,15 +26,15 @@ public class Program
 
     public static async Task Main(string[] args)
     {
-        var config = await Config.LoadFrom("config.json");
+        var config = await Config.LoadFrom("data/config.json");
         if (config is null)
         {
             config ??= new Config();
-            await config.WriteTo("config.json");
+            await config.Save();
             Console.WriteLine("Missing config");
             return;
         }
-        await config.WriteTo("config.json");
+        await config.Save();
 
         using var client = new DiscordSocketClient();
         var program = new Program(config, client);

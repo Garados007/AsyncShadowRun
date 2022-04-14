@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace AsyncShadowRun;
 
@@ -17,6 +18,9 @@ public class Config
 
     public ulong? BotsRole { get; set; }
 
+    [JsonIgnore]
+    public string? Path { get; private set; }
+
     public Configs.AutoChatRoomConfig AutoChatRoom { get; set; }
         = new Configs.AutoChatRoomConfig();
 
@@ -31,7 +35,15 @@ public class Config
         if (!File.Exists(file))
             return null;
         using var stream = new FileStream(file, FileMode.Open, FileAccess.Read);
-        return await JsonSerializer.DeserializeAsync<Config>(stream, Options);
+        var value = await JsonSerializer.DeserializeAsync<Config>(stream, Options);
+        if (value is not null)
+            value.Path = file;
+        return value;
+    }
+
+    public async Task Save()
+    {
+        await WriteTo(Path ?? "config.json");
     }
 
     public async Task WriteTo(string file)
@@ -40,5 +52,6 @@ public class Config
         await JsonSerializer.SerializeAsync(stream, this, Options);
         await stream.FlushAsync();
         stream.SetLength(stream.Position);
+        Path = file;
     }
 }
