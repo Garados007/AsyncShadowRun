@@ -143,7 +143,7 @@ public class CreatePlace : CommandBase
                         .WithName(command.User.Username)
                         .WithIconUrl(command.User.GetAvatarUrl() ?? command.User.GetDefaultAvatarUrl())
                 )
-                .WithTitle($"Ort wurde erstellt")
+                .WithTitle($"Ort {name} wurde erstellt")
                 .WithDescription(
                     $"Chat: <#{channel.Id}>\nRolle: <@&{role.Id}>"
                 )

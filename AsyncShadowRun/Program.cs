@@ -19,6 +19,7 @@ public class Program
         {
             new Commands.CreatePlace(this),
             new Commands.DeletePlace(this),
+            new Commands.Roll(this),
         };
     }
 
