@@ -20,6 +20,8 @@ public class Program
             new Commands.CreatePlace(this),
             new Commands.DeletePlace(this),
             new Commands.Roll(this),
+            new Commands.ResyncKommlink(this),
+            new Commands.Reload(this),
         };
     }
 
@@ -27,6 +29,11 @@ public class Program
     public static async Task Main(string[] args)
     {
         var config = await Config.LoadFrom("data/config.json");
+        if (config is null && File.Exists("data/config.json"))
+        {
+            Console.WriteLine("Invalid config");
+            return;
+        }
         if (config is null)
         {
             config ??= new Config();
