@@ -1,0 +1,17 @@
+# This schema describes how a single ability can be stored
+
+
+# the name of the root node name
+root: ability
+
+# make this group to a template group
+template: true
+
+# the attributes to assign with
+attributes:
+  number:
+    'level':
+      name: Stufe
+  text:
+    'name':
+      name: Name

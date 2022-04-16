@@ -1,0 +1,138 @@
+attributes:
+  number:
+# Normal attributes
+    'bio.attr.kon':
+      name: Konstitution
+      short: kon
+      category: Attribute
+    'bio.attr.ges':
+      name: Geschicklichkeit
+      short: ges
+      category: Attribute
+    'bio.attr.rea':
+      name: Reaktion
+      short: rea
+      category: Attribute
+    'bio.attr.stk':
+      name: Stärke
+      short: stk
+      category: Attribute
+    'bio.attr.wil':
+      name: Willenskraft
+      short: wil
+      category: Attribute
+    'bio.attr.log':
+      name: Logik
+      short: log
+      category: Attribute
+    'bio.attr.int':
+      name: Intuition
+      short: int
+      category: Attribute
+    'bio.attr.cha':
+      name: Charisma
+      short: cha
+      category: Attribute
+    'bio.attr.edge':
+      name: Edge
+      short: edge
+      category: Attribute
+    'bio.attr.ess':
+      name: Essenz
+      short: ess
+      category: Attribute
+    'bio.attr.mag':
+      name: Magie
+      short: mag
+      category: Attribute
+    'bio.attr.res':
+      name: Resonanz
+      short: res
+      category: Attribute
+    'bio.attr.ini':
+      name: Initiative
+      short: ini
+      category: Attribute
+    'bio.attr.mini':
+      name: Matrix-Initiative
+      short: mini
+      category: Attribute
+    'bio.attr.aini':
+      name: Astrale Initiative
+      short: aini
+      category: Attribute
+    'bio.attr.beh':
+      name: Selbstbeherrschung
+      short: beh
+      category: Attribute
+    'bio.attr.ken':
+      name: Menschenkenntnis
+      short: ken
+      category: Attribute
+    'bio.attr.eri':
+      name: Erinnerungsvermögen
+      short: eri
+      category: Attribute
+    'bio.attr.lif':
+      name: Heben/Tragen
+      short: lif
+      category: Attribute
+    'bio.attr.bew':
+      name: Bewegung
+      short: bew
+      category: Attribute
+# Limits
+    'bio.limit.body':
+      name: Körperliches Limit
+      short: klim
+      category: Attribute
+    'bio.limit.mind':
+      name: Geistiges Limit
+      short: glim
+      category: Attribute
+    'bio.limit.social':
+      name: Soziales Limit
+      short: slim
+      category: Attribute
+# Meta
+    'bio.meta.age':
+      name: Alter
+      category: Persönliche Daten
+    'bio.meta.size':
+      name: Größe
+      category: Persönliche Daten
+    'bio.meta.weight':
+      name: Gewicht
+      category: Persönliche Daten
+    'bio.meta.street-cred':
+      name: Straßenruf
+      category: Persönliche Daten
+    'bio.meta.bad-cred':
+      name: Schlechter Ruf
+      category: Persönliche Daten
+    'bio.meta.prom':
+      name: Prominenz
+      category: Persönliche Daten
+    'bio.meta.karma':
+      name: Karma
+      category: Persönliche Daten
+    'bio.meta.total-karma':
+      name: Gesamtkarma
+      category: Persönliche Daten
+
+  text:
+    'bio.meta.name':
+      name: Name
+      category: Persönliche Daten
+    'bio.meta.street-name':
+      name: Straßenname
+      category: Persönliche Daten
+    'bio.meta.meta-type':
+      name: Metatyp
+      category: Persönliche Daten
+    'bio.meta.eth':
+      name: Ethnie
+      category: Persönliche Daten
+    'bio.meta.sex':
+      name: Geschlecht
+      category: Persönliche Daten

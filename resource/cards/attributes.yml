@@ -1,0 +1,49 @@
+name: Attribute
+
+rows:
+  - title-name: bio.attr.kon
+    value-value: bio.attr.kon
+  - title-name: bio.attr.ges
+    value-value: bio.attr.ges
+  - title-name: bio.attr.rea
+    value-value: bio.attr.rea
+  - title-name: bio.attr.stk
+    value-value: bio.attr.stk
+  - title-name: bio.attr.wil
+    value-value: bio.attr.wil
+  - title-name: bio.attr.log
+    value-value: bio.attr.log
+  - title-name: bio.attr.int
+    value-value: bio.attr.int
+  - title-name: bio.attr.cha
+    value-value: bio.attr.cha
+  - title-name: bio.attr.edge
+    value-value: bio.attr.edge
+  - title-name: bio.attr.ess
+    value-value: bio.attr.ess
+  - title-name: bio.attr.mag
+    value-value: bio.attr.mag
+  - title-name: bio.attr.res
+    value-value: bio.attr.res
+  - title-name: bio.attr.ini
+    value-value: bio.attr.ini
+  - title-name: bio.attr.mini
+    value-value: bio.attr.mini
+  - title-name: bio.attr.aini
+    value-value: bio.attr.aini
+  - title-name: bio.attr.beh
+    value-value: bio.attr.beh
+  - title-name: bio.attr.ken
+    value-value: bio.attr.ken
+  - title-name: bio.attr.eri
+    value-value: bio.attr.eri
+  - title-name: bio.attr.lif
+    value-value: bio.attr.lif
+  - title-name: bio.attr.bew
+    value-value: bio.attr.bew
+  - title-name: bio.limit.body
+    value-value: bio.limit.body
+  - title-name: bio.limit.mind
+    value-value: bio.limit.mind
+  - title-name: bio.limit.social
+    value-value: bio.limit.social

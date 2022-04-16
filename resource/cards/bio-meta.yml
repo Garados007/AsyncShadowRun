@@ -1,0 +1,40 @@
+name: Persönliche Daten
+
+# The stats of this character
+rows:
+  - inline: false
+    title:
+      - name: bio.meta.name
+        const: Character Name # as fallback
+      - const: " ("
+      - name: bio.meta.street-name
+      - const: ")"
+    value:
+      - value: bio.meta.name
+      - const: " ("
+      - value: bio.meta.street-name
+      - const: ")"
+  - title-name: bio.meta.meta-type
+    value-value: bio.meta.meta-type
+  - title-name: bio.meta.eth
+    value-value: bio.meta.eth
+  - title-name: bio.meta.age
+    value-value: bio.meta.age
+  - title-name: bio.meta.sex
+    value-value: bio.meta.sex
+  - title-name: bio.meta.size
+    value:
+      - value: bio.meta.size
+      - const: " cm"
+  - title-name: bio.meta.weight
+    value:
+      - value: bio.meta.weight
+      - const: " kg"
+  - title-name: bio.meta.street-cred
+    value-value: bio.meta.street-cred
+  - title-name: bio.meta.bad-cred
+    value-value: bio.meta.bad-cred
+  - title-name: bio.meta.prom
+    value-value: bio.meta.prom
+  - title-name: bio.meta.karma
+    value-value: bio.meta.karma

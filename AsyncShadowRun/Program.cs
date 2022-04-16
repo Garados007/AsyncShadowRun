@@ -17,11 +17,12 @@ public class Program
         Client = client;
         Commands = new Commands.CommandBase[]
         {
+            // new Commands.Character(this),
             new Commands.CreatePlace(this),
             new Commands.DeletePlace(this),
-            new Commands.Roll(this),
-            new Commands.ResyncKommlink(this),
             new Commands.Reload(this),
+            new Commands.ResyncKommlink(this),
+            new Commands.Roll(this),
         };
     }
 
