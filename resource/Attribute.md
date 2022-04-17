@@ -61,4 +61,4 @@ Jede kann verschiedene Attribute mit Einstellungen erhalten. Erlaubt sind:
 |-|-|-|
 | `name` | x | Der Anzeigename des Attributes |
 | `short` | | Ein Kürzel des Attributes. Wird nur bei manchen Anzeigesystemen verwendet |
-| `category` | Die Kategorie unter die diese Attribute zusammengefasst werden können. Wird nur bei manchen Anzeigesystemen verwendet. Gilt nicht Gruppenübergreifend. |
+| `category` | | Die Kategorie unter die diese Attribute zusammengefasst werden können. Wird nur bei manchen Anzeigesystemen verwendet. Gilt nicht Gruppenübergreifend. |
