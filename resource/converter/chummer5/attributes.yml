@@ -1,0 +1,12 @@
+# This convertes the attributes from the chummer5 file to our internal format
+
+rules:
+  - path: character.attributes
+    queries:
+      - group: attribute
+        search:
+          - path: name
+            regex: BOD
+        path: totalvalue
+        key: bio.attr.kon
+        type: text

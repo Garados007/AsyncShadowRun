@@ -63,6 +63,10 @@ public class Character : CommandBase
         var guid = Guid.NewGuid();
         var group = await Data.Attributes.GroupCollection.Load();
         var character = await group.BuildDefault(guid.ToString());
+        character.ControllingUser = owner.Id;
+        character.Texts["bio.meta.name"] = name;
+        character.Texts["bio.meta.street-name"] = name;
+        await character.Save();
 
         var cardInfo = await Data.Cards.Card.Load("bio-meta");
         var cardAttr = await Data.Cards.Card.Load("attributes");

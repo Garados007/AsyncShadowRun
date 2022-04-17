@@ -1,0 +1,33 @@
+# This convertes the bio from the chummer5 file to our internal format
+
+rules:
+  - path: character.name
+    key: bio.meta.name
+    type: text
+  - path: character.playername
+    key: bio.meta.street-name
+    type: text
+  - path: character.sex
+    key: bio.meta.sex
+    type: text
+  - path: character.age
+    key: bio.meta.age
+    type: number
+  - path: character.metatype
+    key: bio.meta.meta-type
+    type: text
+  - path: character.metavariant
+    key: bio.meta.eth
+    type: text
+  - path: character.height
+    key: bio.meta.size
+    type: number
+    format:
+      - regex: (\d+)\.(\d\d)
+        text: '{1}{2}'
+  - path: character.weight
+    key: bio.meta.weight
+    type: number
+    format:
+      - regex: (\d+)
+        text: '{1}'

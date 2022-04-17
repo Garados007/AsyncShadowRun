@@ -17,7 +17,9 @@ public class Program
         Client = client;
         Commands = new Commands.CommandBase[]
         {
-            // new Commands.Character(this),
+#if DEBUG
+            new Commands.Character(this),
+#endif
             new Commands.CreatePlace(this),
             new Commands.DeletePlace(this),
             new Commands.Reload(this),
