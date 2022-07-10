@@ -37,7 +37,15 @@ public class ResyncKommlink : CommandBase
             return;
         }
 
+
         var guild = Client.GetGuild(guildId);
+        await command.RespondAsync(
+            embed: new EmbedBuilder()
+                .WithTitle("Download Users")
+                .Build(),
+            ephemeral: true
+        );
+        await guild.DownloadUsersAsync();
         var players = new List<IGuildUser>();
         var playerHash = new HashSet<ulong>();
         foreach (var user in guild.Users)
