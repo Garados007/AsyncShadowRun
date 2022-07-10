@@ -50,7 +50,9 @@ public class Program
         using var client = new DiscordSocketClient(new DiscordSocketConfig
         {
             GatewayIntents = GatewayIntents.AllUnprivileged
-                | GatewayIntents.GuildMessages
+                | GatewayIntents.GuildMembers,
+            AlwaysDownloadUsers = true,
+
         });
         var program = new Program(config, client);
 
