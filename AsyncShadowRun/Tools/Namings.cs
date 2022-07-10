@@ -15,7 +15,7 @@ public static class Namings
                 case 'ä':
                 case 'ö':
                 case 'ü':
-                case (>= 'a' and <= 'z') or (>= '0' and <= '9'):
+                case (>= 'a' and <= 'z') or (>= '0' and <= '9') or '×' or '☎':
                     data[j++] = ch;
                     special = false;
                     break;

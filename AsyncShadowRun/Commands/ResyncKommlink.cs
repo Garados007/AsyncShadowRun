@@ -66,7 +66,7 @@ public class ResyncKommlink : CommandBase
             for (int j = i + 1; j < players.Count; ++j)
             {
                 var name = Tools.Namings.FormatChannelName(
-                    $"{players[i].DisplayName}-{players[j].DisplayName}"
+                    $"☎{players[i].DisplayName}×{players[j].DisplayName}"
                 );
                 var topic = $"Direct chat with {players[i].DisplayName} and {players[j].DisplayName}";
                 Data.KommlinkChat? chat;
