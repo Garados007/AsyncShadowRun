@@ -58,6 +58,7 @@ public class ResyncKommlink : CommandBase
         int updated = 0;
         int created = 0;
         int deleted = 0;
+        bool defered = false;
 
         for (int i = 0; i < players.Count; ++i)
         {
@@ -82,7 +83,9 @@ public class ResyncKommlink : CommandBase
                                 x.Name = name;
                                 x.Topic = topic;
                             });
-                            await command.DeferAsync();
+                            if (!defered)
+                                await command.DeferAsync();
+                            else defered = true;
                             updated++;
                         }
                     }
@@ -128,7 +131,9 @@ public class ResyncKommlink : CommandBase
                             x.Topic = topic;
                         }
                     );
-                    await command.DeferAsync();
+                    if (!defered)
+                        await command.DeferAsync();
+                    else defered = true;
                     conf[players[j].Id] = new Data.KommlinkChat
                     {
                         RoomId = room.Id,
@@ -146,7 +151,9 @@ public class ResyncKommlink : CommandBase
                     if (room is null)
                         continue;
                     await room.DeleteAsync();
-                    await command.DeferAsync();
+                    if (!defered)
+                        await command.DeferAsync();
+                    else defered = true;
                     deleted++;
                 }
         }
@@ -161,7 +168,9 @@ public class ResyncKommlink : CommandBase
                     if (room is null)
                         continue;
                     await room.DeleteAsync();
-                    await command.DeferAsync();
+                    if (!defered)
+                        await command.DeferAsync();
+                    else defered = true;
                     deleted++;
 
                 }
