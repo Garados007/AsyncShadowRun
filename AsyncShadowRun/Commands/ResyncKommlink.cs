@@ -48,7 +48,9 @@ public class ResyncKommlink : CommandBase
             {
                 players.Add(user);
                 playerHash.Add(user.Id);
+                Program.Log($"ResyncKommlink: Found {user.DisplayName} ({user.Id})");
             }
+            else Program.Log($"ResyncKommlink: Skip {user.DisplayName} ({user.Id})");
         }
         players.Sort((x, y) => x.Id.CompareTo(y.Id));
 

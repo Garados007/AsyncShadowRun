@@ -62,6 +62,11 @@ public class Program
         await Task.Delay(-1);
     }
 
+    public static void Log(string text)
+    {
+        Console.WriteLine($"{DateTime.UtcNow:H:m:s} Bot        {text}");
+    }
+
     private static async Task Log(LogMessage msg)
     {
         Console.WriteLine(msg);
