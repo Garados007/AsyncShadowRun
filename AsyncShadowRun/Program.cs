@@ -26,6 +26,7 @@ public class Program
             new Commands.ResyncKommlink(this),
             new Commands.Roll(this),
         };
+        
     }
 
 
@@ -46,7 +47,11 @@ public class Program
         }
         await config.Save();
 
-        using var client = new DiscordSocketClient();
+        using var client = new DiscordSocketClient(new DiscordSocketConfig
+        {
+            GatewayIntents = GatewayIntents.AllUnprivileged
+                | GatewayIntents.GuildMessages
+        });
         var program = new Program(config, client);
 
         client.Log += Log;
