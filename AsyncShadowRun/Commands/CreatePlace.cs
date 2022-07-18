@@ -57,6 +57,8 @@ public class CreatePlace : CommandBase
             );
             return;
         }
+        await command.DeferAsync();
+
         var guild = Client.GetGuild(guildId);
         var role = await guild.CreateRoleAsync(
             name: $"Ort: {name}"
@@ -106,19 +108,22 @@ public class CreatePlace : CommandBase
             RoomId = channel.Id,
         });
         await SaveConfigAsync();
-        await command.RespondAsync(
-            embed: new EmbedBuilder()
-                .WithAuthor(
-                    new EmbedAuthorBuilder()
-                        .WithName(command.User.Username)
-                        .WithIconUrl(command.User.GetAvatarUrl() ?? command.User.GetDefaultAvatarUrl())
-                )
-                .WithTitle($"Ort {name} wurde erstellt")
-                .WithDescription(
-                    $"Chat: <#{channel.Id}>\nRolle: <@&{role.Id}>"
-                )
-                .Build(),
-            allowedMentions: AllowedMentions.None
+        await command.ModifyOriginalResponseAsync(
+            mes => 
+            {
+                mes.Embed = new EmbedBuilder()
+                    .WithAuthor(
+                        new EmbedAuthorBuilder()
+                            .WithName(command.User.Username)
+                            .WithIconUrl(command.User.GetAvatarUrl() ?? command.User.GetDefaultAvatarUrl())
+                    )
+                    .WithTitle($"Ort {name} wurde erstellt")
+                    .WithDescription(
+                        $"Chat: <#{channel.Id}>\nRolle: <@&{role.Id}>"
+                    )
+                    .Build();
+                mes.AllowedMentions = AllowedMentions.None;
+            }
         );
 
         await new Tools.AutoRoleForRoom(Config, Client).RepopulateMessages();
