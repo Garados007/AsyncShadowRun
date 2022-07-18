@@ -154,11 +154,35 @@ public class AutoRoleForRoom
             var user = reaction.User.IsSpecified ? reaction.User.Value as IGuildUser : null;
             if (user is null)
                 return;
+            var hadRole = false;
+            foreach (var existingRoom in Config.AutoChatRoom.Rooms.Where(x => user.RoleIds.Contains(x.RoleId)))
+            {
+                if (existingRoom.RoomId == room.RoomId)
+                {
+                    hadRole = true;
+                    continue;
+                }
+                var discordRoom = await Client.GetChannelAsync(existingRoom.RoomId);
+                if (discordRoom is SocketTextChannel socketTextChannel)
+                    await socketTextChannel.SendMessageAsync(
+                        embed: new EmbedBuilder()
+                            .WithTitle($"{user.Nickname} left the place")
+                            .WithColor(Color.Red)
+                            .Build()
+                    );
+            }
             await user.RemoveRolesAsync(Config.AutoChatRoom.Rooms
                 .Select(x => x.RoleId)
                 .Where(user.RoleIds.Contains)
             );
             await user.AddRoleAsync(room.RoleId);
+            if (!hadRole && await Client.GetChannelAsync(room.RoomId) is SocketTextChannel textChannel)
+                await textChannel.SendMessageAsync(
+                    embed: new EmbedBuilder()
+                        .WithTitle($"{user.Nickname} entered the place")
+                        .WithColor(Color.Green)
+                        .Build()
+                );
         }
         finally
         {
