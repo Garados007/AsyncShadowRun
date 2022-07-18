@@ -26,6 +26,8 @@ public class Config : Data.JsonData<Config>
 
     public Configs.KommlinkConfig Kommlink { get; set; }
         = new Configs.KommlinkConfig();
+    
+    public Configs.TwitterConfig Twitter { get; set; } = new();
 
     public async Task Reload()
     {
@@ -39,6 +41,7 @@ public class Config : Data.JsonData<Config>
         PlayerRole = conf.PlayerRole;
         AutoChatRoom = conf.AutoChatRoom;
         Kommlink = conf.Kommlink;
+        Twitter = conf.Twitter;
     }
 
     protected override JsonTypeInfo<Config> GetJsonTypeInfo(SourceGenerationContext ctx)

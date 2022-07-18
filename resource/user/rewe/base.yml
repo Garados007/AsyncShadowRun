@@ -1,0 +1,23 @@
+
+# list of all items
+prices:
+  - name: Bananen
+    price: 4.00
+    suffix: /kg
+  - name: Messer
+    price: 10.00
+  - name: Meta Link
+    price: 100
+  - name: Sony Emperor
+    price: 700
+  - name: Elektronisches Papier
+    price: 5
+  - name: Drucker
+    price: 25
+  - name: Credstick
+    price: 5
+  - name: Credstick Silber
+    price: 20
+  - name: Credstick Gold
+    price: 100
+  

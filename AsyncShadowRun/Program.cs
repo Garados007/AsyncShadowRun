@@ -9,6 +9,7 @@ public class Program
     public Config Config { get; }
     public DiscordSocketClient Client { get; }
     public Commands.CommandBase[] Commands { get; }
+    public Twitter.Controller twitter { get; }
 
 
     public Program(Config config, DiscordSocketClient client)
@@ -26,7 +27,7 @@ public class Program
             new Commands.ResyncKommlink(this),
             new Commands.Roll(this),
         };
-        
+        twitter = new(config, client);
     }
 
 
@@ -90,6 +91,7 @@ public class Program
         {
             for (int i = 0; i < Commands.Length; ++i)
                 await guild.CreateApplicationCommandAsync(Commands[i].GetSlashCommand());
+            await twitter.Setup(guild);
         }
         catch (Exception e)
         {
