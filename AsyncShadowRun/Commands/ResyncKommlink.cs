@@ -146,6 +146,73 @@ public class ResyncKommlink : CommandBase
                     await room.DeleteAsync();
                     deleted++;
                 }
+
+            // npc direct chat
+            {
+                var name = Tools.Namings.FormatChannelName(
+                    $"☎NPC×{players[i].DisplayName}"
+                );
+                var topic = $"Direct chat with any NPC and {players[i].DisplayName}";
+                Data.KommlinkChat? chat;
+                if (Config.Kommlink.NpcChats.TryGetValue(players[i].Id, out chat))
+                {
+                    var room = guild.GetTextChannel(chat.RoomId);
+                    if (room != null)
+                    {
+                        if (room.Name != name)
+                        {
+                            await room.ModifyAsync(x => 
+                            {
+                                x.Name = name;
+                                x.Topic = topic;
+                            });
+                            updated++;
+                        }
+                    }
+                    else chat = null;
+                }
+                else chat = null;
+
+                if (chat is null)
+                {
+                    var room = await guild.CreateTextChannelAsync(
+                        name,
+                        x =>
+                        {
+                            x.CategoryId = groupId;
+                            x.PermissionOverwrites = new []
+                            {
+                                new Overwrite(leaderId, PermissionTarget.Role, 
+                                    OverwritePermissions.InheritAll.Modify(
+                                        viewChannel: PermValue.Allow
+                                    )
+                                ),
+                                new Overwrite(botsId, PermissionTarget.Role, 
+                                    OverwritePermissions.InheritAll.Modify(
+                                        viewChannel: PermValue.Allow
+                                    )
+                                ),
+                                new Overwrite(players[i].Id, PermissionTarget.User, 
+                                    OverwritePermissions.InheritAll.Modify(
+                                        viewChannel: PermValue.Allow
+                                    )
+                                ),
+                                new Overwrite(guild.EveryoneRole.Id, PermissionTarget.Role, 
+                                    OverwritePermissions.InheritAll.Modify(
+                                        viewChannel: PermValue.Deny
+                                    )
+                                ),
+                            };
+                            x.Topic = topic;
+                        }
+                    );
+                    Config.Kommlink.NpcChats[players[i].Id] = new Data.KommlinkChat
+                    {
+                        RoomId = room.Id,
+                    };
+                    created++;
+                }
+            }
         }
 
         // check for old rooms that are no longer allowed to exists
@@ -163,6 +230,18 @@ public class ResyncKommlink : CommandBase
                 }
                 Config.Kommlink.DirectChats.Remove(pid);
             }
+        foreach (var (pid, info) in Config.Kommlink.NpcChats.ToArray())
+            if (!playerHash.Contains(pid))
+            {
+                var room = guild.GetTextChannel(info.RoomId);
+                if (room is not null)
+                {
+                    await room.DeleteAsync();
+                    deleted++;
+                }
+                Config.Kommlink.DirectChats.Remove(pid);
+            }
+
 
         // finish
         var embed = new EmbedBuilder()
