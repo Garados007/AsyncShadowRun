@@ -9,7 +9,11 @@ public class Rewe : TwitterUserBase
     {
         public DateTime? NextPost { get; set; }
 
-        public List<double> PostTimes { get; set; } = new();
+        public double TimeWindowStart { get; set; }
+
+        public double TimeWindowEnd { get; set; }
+
+        public double Chance { get; set; }
     }
 
     public class Entry
@@ -89,30 +93,13 @@ public class Rewe : TwitterUserBase
     {
         var rng = new Random();
         var now = DateTime.UtcNow;
-        var hour = now.TimeOfDay.Hours;
-        var nextHour = Data.PostTimes
-            .Where(x => x > hour)
-            .OrderBy(x => x)
-            .Select(x => (double?)x)
-            .FirstOrDefault();
-        DateTime next;
-        if (nextHour is not null)
-        {
-            next = now.Date + TimeSpan.FromHours(nextHour.Value + rng.NextDouble());
-        }
-        else
-        {
-            if (Data.PostTimes.Count > 0)
-            {
-                next = now.Date + TimeSpan.FromHours(24 + Data.PostTimes[0] + rng.NextDouble());
-            }
-            else
-            {
-                next = now + TimeSpan.FromDays(1);
-            }
-        }
+        var date = now.Date.AddDays(1);
+        while (rng.NextDouble() > Data.Chance)
+            date = date.AddDays(1);
+        var next = date + TimeSpan.FromHours(Data.TimeWindowStart +
+            rng.NextDouble() * (Data.TimeWindowEnd - Data.TimeWindowStart)
+        );
         Data.NextPost = next;
         await SetConfig(Data);
     }
-
 }
