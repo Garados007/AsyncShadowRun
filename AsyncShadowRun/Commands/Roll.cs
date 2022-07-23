@@ -15,6 +15,7 @@ public class Roll : CommandBase
 
     public override async Task Execute(SocketSlashCommand command)
     {
+        await command.DeferAsync();
         var count = (long)command.Data.Options.First().Value;
         if (count > 100 || count <= 0)
         {
@@ -59,8 +60,8 @@ public class Roll : CommandBase
         }
 
 
-        await command.RespondAsync(
-            embed: new EmbedBuilder()
+        await command.ModifyOriginalResponseAsync(
+            mes => mes.Embed = new EmbedBuilder()
                 .WithTitle($"Würfle {count}D6: {state}")
                 .WithColor(color)
                 .WithDescription(sb.ToString())
