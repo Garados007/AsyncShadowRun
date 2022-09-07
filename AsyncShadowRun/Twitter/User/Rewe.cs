@@ -85,7 +85,7 @@ public class Rewe : TwitterUserBase
         sb.AppendLine("! Schlag jetzt zu!");
         sb.AppendLine();
         sb.AppendLine("*Dein REWE - Immer ein Vergnügen wert.*");
-        await Post(sb.ToString());
+        // await Post(sb.ToString());
         await UpdateNextTime();
     }
 
